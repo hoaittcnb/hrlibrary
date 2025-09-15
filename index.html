@@ -3,56 +3,254 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SharePoint Tabs</title>
+  <title>HR Library - Tabs</title>
   <style>
-    body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:8px}
-    .sp-tabs{max-width:1200px}
-    .tab-buttons{display:flex;flex-wrap:wrap;border-bottom:2px solid #e1e1e1;margin-bottom:8px}
-    .tab-btn{background:#f1f1f1;border:none;padding:10px 16px;margin-right:6px;margin-bottom:6px;cursor:pointer;font-size:14px;border-radius:6px 6px 0 0}
-    .tab-btn.active{background:#0078d7;color:#fff;font-weight:600}
-    .tab-content{display:none;padding:16px;border:1px solid #e1e1e1;border-top:none;border-radius:0 0 6px 6px}
-    .tab-content.active{display:block}
-    @media(max-width:520px){
-      .tab-buttons{display:block}
-      .tab-btn{display:block;width:100%;text-align:left}
+    :root {
+      --menu-w: 180px;
+      --accent: #0078d7;
+      --bg: transparent; /* no background */
     }
+    html,body {
+      height:100%;
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      color:#222;
+      background: transparent; /* page background transparent */
+    }
+    .wrap {box-sizing:border-box; padding:20px; height:100%;}
+    .tab-container {
+      display:flex;
+      border:2px solid #0d4b73;
+      height:520px;   /* adjust as needed */
+      background: transparent;
+      overflow:hidden;
+      border-radius:4px;
+    }
+    .tab-menu {
+      width:var(--menu-w);
+      background: transparent;
+      border-right:2px solid #0d4b73;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      padding:10px;
+      box-sizing:border-box;
+    }
+    .tab-menu button {
+      background:transparent;
+      border:2px dotted #345;
+      padding:12px 10px;
+      margin:8px 4px;
+      text-align:left;
+      cursor:pointer;
+      border-radius:4px;
+      transition:all .15s ease;
+      font-size:14px;
+    }
+    .tab-menu button:hover { transform:translateX(4px); }
+    .tab-menu button.active {
+      background:var(--accent);
+      color:#fff;
+      border-style:solid;
+      border-color:rgba(0,0,0,.08);
+      font-weight:600;
+    }
+    .tab-content {
+      flex:1;
+      padding:20px;
+      background:transparent;
+      overflow:auto;
+    }
+    .tab-content > div { display:none; }
+    .tab-content > div.active { display:block; }
+    /* responsive */
+    @media (max-width:720px){
+      .tab-container{ flex-direction:column; height:auto;}
+      .tab-menu{ width:100%; flex-direction:row; overflow:auto; padding:8px; }
+      .tab-menu button{ white-space:nowrap; margin:6px; }
+    }
+    table, th, td {
+      border: 1px solid #96D4D4; /* Light blue border */
+    }
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: transparent; /* removed header shading */
+    }  
   </style>
 </head>
 <body>
-  <div class="sp-tabs">
-    <div class="tab-buttons" role="tablist">
-      <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">Tab 1</button>
-      <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">Tab 2</button>
-      <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">Tab 3</button>
-    </div>
+     <div class="wrap">
+    <div class="tab-container" role="region" aria-label="Left tabs example">
+      <div class="tab-menu" role="tablist" aria-orientation="vertical">
+        <button class="active" role="tab" aria-selected="true" onclick="showTab('tab1', this)">Mục đích</button>
+        <button role="tab" onclick="showTab('tab2', this)">Nguyên tắc quản lý tài liệu</button>
+        <button role="tab" onclick="showTab('tab3', this)">Quy định soạn thảo, ban hành chính sách, quy trình HR</button>
+        <button role="tab" onclick="showTab('tab4', this)">Thông tin liên hệ hỗ trợ</button>
+      </div>
 
-    <div id="tab1" class="tab-content active" role="tabpanel">
-      <h3>Content for Tab 1</h3>
-      <p>This is the first tab’s content.</p>
-    </div>
+      <div class="tab-content">
+        <div id="tab1" class="active" role="tabpanel">
+          <p>HR Library là kho lưu trữ tập trung các chính sách, quy trình, quy định và hướng dẫn của Nhân sự. Mục tiêu nhằm:</p>
+          <ul>
+            <li>Giúp HRBP và các phòng ban dễ dàng tìm kiếm, tra cứu.</li>
+            <li>Đảm bảo tính thống nhất, minh bạch và tuân thủ trong việc áp dụng chính sách, quy trình nhân sự.</li>
+            <li>Hỗ trợ quản trị và lưu trữ các Chính sách, quy trình, quy định của HR theo tiêu chuẩn ISO & Quy định chung của Công ty.</li>
+          </ul>
+        </div>
 
-    <div id="tab2" class="tab-content" role="tabpanel">
-      <h3>Content for Tab 2</h3>
-      <p>This is the second tab’s content.</p>
-    </div>
+        <div id="tab2" role="tabpanel">
+	  <ul>
+            <li>Thống nhất về thể thức, nội dung, định dạng và cách lưu trữ.</li>
+            <li>Đảm bảo tài liệu là phiên bản mới nhất, đang hiệu lực và được rà soát định kỳ và thay thế khi hết hiệu lực.</li>
+          </ul>
 
-    <div id="tab3" class="tab-content" role="tabpanel">
-      <h3>Content for Tab 3</h3>
-      <p>This is the third tab’s content.</p>
+        </div>
+
+        <div id="tab3" role="tabpanel">
+          <p>Các tài liệu trong thư viện được soạn thảo, ban hành theo Quy định Soạn thảo, Ban hành và Kiểm soát Chính sách, Quy trình Nhân sự (QD-HR.GS-001-01)</p>
+	     <ol>
+                <li><b>Quy định trình bày và định danh tài liệu</b></li>
+		    <a><b>Về hình thức</b></a>
+			<ul>
+            		  <li>Khổ giấy: A4;</li>
+            		  <li>Kiểu trình bày: Theo chiều dài của khổ A4. Trường hợp nội dung văn bản có Lưu đồ, bảng biểu thì tại trang chứa các Lưu đồ, bảng biểu của văn bản có thể được trình bày theo chiều ngang;</li>
+            		  <li>Kiểu chữ (font): Times New Roman, đánh Unicode;</li>
+			  <li>Chữ và Cỡ chữ (font, size):</li>
+			    <ul>
+			       <li>Tên văn bản: Tối thiểu 20 pt, chữ in hoa, đậm</li>
+			       <li>Phần nội dung: 10-12 pt</li>
+			       <li>Khác (ví dụ Header, Footer, số trang,…): 12 pt</li>
+			    </ul>
+			  <li>Cách dòng (line spacing): Tối thiểu là dòng đơn và tối đa là 1,5 lines.</li>
+			  <li>Khoảng cách giữa các đoạn văn bản: tối thiểu 4pt;</li>
+			  <li>Định lề (margin) tiêu chuẩn:</li>
+			    <ul>
+			       <li>Top	: 2.5cm</li>
+			       <li>Bottom: 2.5 cm</li>
+			       <li>Left	: 2.5 cm</li>
+			       <li>Right: 2 cm</li>
+			       <li>Header: 0.5 pt</li>
+			       <li>Footer: 0.5 pt</li>
+			    </ul>
+			  <li>Tên mục và các tiểu mục: chữ thường in đậm,  đánh theo số Ả rập (1, 2, 3,…) và đánh số thành nhóm chữ số, nhiều nhất bốn (04) chữ số với số thứ nhất chỉ số mục, không đánh theo số La Mã (I, II, III,…). Ví dụ: 1.2.1 chỉ tiểu mục 1, nhóm tiểu mục 2, mục 1;</li>
+			  <li>Đánh số trang: phải đánh số trang và số trang được đánh từ phần nội dung chính của tài liệu, ở góc phải cuối trang.</li>
+			  <li>Ngôn ngữ trình bày văn bản: Tiếng Việt hoặc Tiếng Anh;</li>
+			  <li>Văn bản được in 01 mặt. Trường hợp văn bản có logo của Công ty thì nên in màu ít nhất 01 bản trước khi trình ký và ban hành.</li>
+         		</ul>
+		    <a><b>Về nội dung</b></a>
+			<ul>
+            		  <li>Nội dung phải thể hiện rõ ràng bao gồm ít nhất các thông tin sau: mục đích, phạm vi áp dụng, hiệu lực và các nội dung chính của văn bản.</li>
+			  <li>Đối với các Chính sách, Quy trình, Quy định thông thường có thể bao gồm 2 phần:</li>
+			    <ul>
+			       <li>Giới thiệu về Mục đích, phạm vi áp dụng, hiệu lực, các định nghĩa, từ viết tắt, quy ước;</li>
+			       <li>Nội dung về Nguyên tắc, Tiêu chuẩn, Quy định, Lưu đồ,…</li>
+			    </ul>
+			  <li>Nếu trong nội dung trong văn bản có những thông tin dễ thay đổi, ví dụ như các biểu mẫu email hướng dẫn gia hạn Hợp đồng lao động,…. thì những thông tin này nên được tách riêng, trình bày dưới dạng tài liệu đính kèm (phụ lục, biểu mẫu, danh mục,…) theo văn bản. Việc điều chỉnh, cập nhật tài liệu đính kèm không yêu cầu ban hành lại toàn bộ văn bản chính. Thay vào đó, chỉ cần ban hành tài liệu sửa đổi/điều chỉnh riêng cho tài liệu đính kèm đó.</li>
+			  <li>Thời hạn soát xét của một tài liệu sẽ do Nhóm Nhân sự Chức năng soạn thảo và kiểm soát tài liệu đề xuất tùy theo tính chất nội dung dễ bị lỗi thời. Khi hết thời hạn soát xét, bắt buộc Nhóm Nhân sự Chức năng đang phụ trách tài liệu phải ban hành phiên bản thay thế kể cả trường hợp không thay đổi nội dung tài liệu.</li>
+          		</ul>
+		    <a><b>Mã tài liệu được đặt theo định dạng:</b></a>
+			<ul>
+			  <li><u>Tài liệu chính:</u></li>
+				<a>[Loại tài liệu]-[Tên Công ty]-[HR].[Nhóm Nhân sự chức năng]-[Số hiệu tài liệu]-[Phiên bản].</a>
+			  <li><u>Tài liệu liên quan:</u> (ví dụ như Phụ lục, Biểu mẫu,…)</li>
+				<a>[Mã tài liệu]-[Tài liệu đính kèm][Số hiệu tài liệu đính kèm].</a>
+			  <ul>
+			      <li>Trong đó:</li>
+				  <table>
+                                    <tr>
+                                      <th style="text-align: center;">Thành tố</th>
+                                      <th style="text-align: center;">Bắt buộc</th>
+                                      <th style="text-align: center;">Nguyên tắc</th>
+                                    </tr>
+                                    <tr>
+                                      <td>Loại tài liệu</td>
+                                      <td>x</td>
+                                      <td>Theo Danh mục quy ước viết tắt đính kèm Quy định này</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Tên Công ty</td>
+                                      <td></td>
+                                      <td>Theo Danh mục quy ước viết tắt đính kèm Quy định này.<br>Chỉ bắt buộc đối với văn bản có phạm vi áp dụng theo một công ty nhất định</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Nhóm Nhân sự chức năng</td>
+                                      <td>x</td>
+                                      <td>Theo Danh mục quy ước viết tắt đính kèm Quy định này.</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Số hiệu tài liệu</td>
+                                      <td>x</td>
+                                      <td>Gồm 03 chữ số và được đặt theo thứ tự ban hành văn bản từ 1</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Phiên bản</td>
+                                      <td>x</td>
+                                      <td>Gồm 02 chữ số và được đặt theo thứ tự từ 1</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Tài liệu đính kèm</td>
+                                      <td></td>
+                                      <td>Theo Danh mục quy ước viết tắt đính kèm Quy định này</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Số hiệu tài liệu đính kèm</td>
+                                      <td></td>
+                                      <td>Gồm 02 chữ số và được đặt theo thứ tự từ 1</td>
+                                    </tr>
+                                    <tr>
+                                       <td colspan="3"><i><u>Ví dụ:</u><br>Quy định đầu tiên do HRGS ban hành được đánh mã tài liệu: QD-HR.GS-001-01; Danh mục quy ước viết tắt đính kèm theo Quy định này có mã:  QD-HR.GS-001-01-DM01</i></td>
+                                    </tr>
+				  </table>	  
+                              <li>Đối với các Nhóm Nhân sự Chức năng có nghiệp vụ sử dụng nhiều loại văn bản nằm ngoài bảng quy ước viết tắt, có thể có thêm quy ước viết tắt, quy tắc đánh số khác nhưng phải bảo đảm tuân thủ đúng quy tắc đã đưa ra trong tất cả các văn bản.</li>
+                          </ul>
+			      <li><b>Phân loại thông tin tài liệu</b> phải gồm 2 yếu tố: Cấp độ và Nhãn phân loại tài liệu</li>
+			      <ul>
+                                 <li>Cấp độ *:  Mật (Confidential), Nội bộ (Internal), Công khai (Public).<br><i>(*)  Tham khảo định nghĩa 03 cấp độ phân loại tại Tiêu Chuẩn Phân Loại Thông Tin do ISO ban hành.</i></li>
+                                 <li>Nhãn phân loại tài liệu ví dụ: Tài liệu Nhân viên (Employee Information), Lưu hành nội bộ HR VNG (HR VNG ’s Internal Document), Lưu hành nội bộ VNG (VNG’s Internal Document), ….</li>
+			      </ul>
+			</ul>
+                <li><b>Lưu đồ</b></li> 
+		    <img src="D:\HR libery\create HTML\luudo-removebg-preview.png" alt="luu do">  <br>
+         	    </ul>
+		    <a><b><i>Quy ước ký hiệu dùng trong Lưu đồ:</i></b></a>
+		    <ul>
+		    <img src="D:\HR libery\create HTML\kyhieu-removebg-preview.png" alt="ky hieu"  width="400" height="100" >		      
+             </ol>
+	</div>
+        <div id="tab4" role="tabpanel">
+          <p>Oanh. Hồ Thị Diệu<br>HR Governance & System Specialist<br>Human Resources<br>oanhhtd@vng.com.vn</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </div> 
 
   <script>
-    (function () {
-      function openTab(tabId, btn) {
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-        document.getElementById(tabId).classList.add('active');
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected','true');
-      }
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', function () { openTab(this.dataset.tab, this); });
+    function showTab(tabId, btn){
+      document.querySelectorAll('.tab-content > div').forEach(d => d.classList.remove('active'));
+      document.querySelectorAll('.tab-menu button').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected','false');
+      });
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+    }
+    (function(){
+      const buttons = Array.from(document.querySelectorAll('.tab-menu button'));
+      buttons.forEach((b,i) => {
+        b.addEventListener('keydown', e => {
+          if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){ e.preventDefault(); buttons[(i+1)%buttons.length].focus(); }
+          if(e.key === 'ArrowUp' || e.key === 'ArrowLeft'){ e.preventDefault(); buttons[(i-1+buttons.length)%buttons.length].focus(); }
+          if(e.key === 'Enter' || e.key === ' '){ b.click(); }
+        });
       });
     })();
   </script>
