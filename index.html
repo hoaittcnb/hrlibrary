@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SharePoint Tabs</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:8px}
+    .sp-tabs{max-width:1200px}
+    .tab-buttons{display:flex;flex-wrap:wrap;border-bottom:2px solid #e1e1e1;margin-bottom:8px}
+    .tab-btn{background:#f1f1f1;border:none;padding:10px 16px;margin-right:6px;margin-bottom:6px;cursor:pointer;font-size:14px;border-radius:6px 6px 0 0}
+    .tab-btn.active{background:#0078d7;color:#fff;font-weight:600}
+    .tab-content{display:none;padding:16px;border:1px solid #e1e1e1;border-top:none;border-radius:0 0 6px 6px}
+    .tab-content.active{display:block}
+    @media(max-width:520px){
+      .tab-buttons{display:block}
+      .tab-btn{display:block;width:100%;text-align:left}
+    }
+  </style>
+</head>
+<body>
+  <div class="sp-tabs">
+    <div class="tab-buttons" role="tablist">
+      <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">Tab 1</button>
+      <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">Tab 2</button>
+      <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">Tab 3</button>
+    </div>
+
+    <div id="tab1" class="tab-content active" role="tabpanel">
+      <h3>Content for Tab 1</h3>
+      <p>This is the first tab’s content.</p>
+    </div>
+
+    <div id="tab2" class="tab-content" role="tabpanel">
+      <h3>Content for Tab 2</h3>
+      <p>This is the second tab’s content.</p>
+    </div>
+
+    <div id="tab3" class="tab-content" role="tabpanel">
+      <h3>Content for Tab 3</h3>
+      <p>This is the third tab’s content.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function openTab(tabId, btn) {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected','true');
+      }
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function () { openTab(this.dataset.tab, this); });
+      });
+    })();
+  </script>
+</body>
+</html>
